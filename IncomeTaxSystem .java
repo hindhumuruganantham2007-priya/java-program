@@ -1,0 +1,68 @@
+import java.util.Scanner;
+
+public class IncomeTaxSystem {
+
+    // Method to calculate tax
+    public static double calculateTax(double taxableIncome) {
+        double tax = 0;
+
+        if (taxableIncome <= 250000) {
+            tax = 0;
+        } 
+        else if (taxableIncome <= 500000) {
+            tax = (taxableIncome - 250000) * 0.05;
+        } 
+        else if (taxableIncome <= 1000000) {
+            tax = 12500 + (taxableIncome - 500000) * 0.20;
+        } 
+        else {
+            tax = 112500 + (taxableIncome - 1000000) * 0.30;
+        }
+
+        return tax;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        double income = 0;
+        double deduction = 0;
+        double taxableIncome = 0;
+        double tax = 0;
+
+        System.out.println("===== Income Tax Estimation System =====");
+
+        // Input Income
+        System.out.print("Enter Total Income: ");
+        income = sc.nextDouble();
+
+        // Input Deductions
+        System.out.print("Enter Total Deductions: ");
+        deduction = sc.nextDouble();
+
+        // Validation
+        if (income < 0 || deduction < 0) {
+            System.out.println("Invalid input! Values cannot be negative.");
+        } 
+        else {
+            // Process
+            taxableIncome = income - deduction;
+
+            if (taxableIncome < 0) {
+                taxableIncome = 0;
+            }
+
+            // Tax Calculation
+            tax = calculateTax(taxableIncome);
+
+            // Output
+            System.out.println("\n----- Result -----");
+            System.out.println("Total Income     : " + income);
+            System.out.println("Total Deduction  : " + deduction);
+            System.out.println("Taxable Income   : " + taxableIncome);
+            System.out.println("Tax Payable      : " + tax);
+        }
+
+        sc.close();
+    }
+}
